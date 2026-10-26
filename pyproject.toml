@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tamba_evals"
+version = "0.0.1"
+description = "Independent AI evaluation tasks for the Inspect framework (inspect_ai), authored in Japan."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Hiroki Tamba" }]
+keywords = ["ai-evaluation", "inspect_ai", "benchmark", "reproducibility"]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = ["inspect_ai"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+# Inspect discovers tasks, solvers, scorers and tools of an installed package
+# through this entry point. The value points at the registry module, which
+# imports every component the package wants Inspect to register.
+# Installed components are then referenced as tamba_evals/<name>, e.g.
+#   inspect eval tamba_evals/<task>
+[project.entry-points.inspect_ai]
+tamba_evals = "tamba_evals._registry"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
